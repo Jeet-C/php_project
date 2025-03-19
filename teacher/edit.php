@@ -55,6 +55,8 @@ $row=$rs->fetch_assoc();
     <!-- Daterange CSS -->
     <link rel="stylesheet" href="vendor/daterange/daterange.css" />
     <link rel="stylesheet" href="css/style.css">
+    <!-- Tailwind CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 </head>
 
@@ -106,61 +108,61 @@ $row=$rs->fetch_assoc();
 
                 <!-- BEGIN .main-content -->
                 <div class="main-content">
+                    <form action="ed.php" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
                     <h5>Edit Form...</h5>
-                    <form action="ed.php" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="<?php echo $row['gid']; ?>">
-                        <!-- <p><label for="nac">Teacher Name</label></p>
-                        <p><input type="text" name="name" id="na" placeholder="Enter the name"
-                                value="<?php //echo $row['tname']; ?>" /></p> -->
-                        <p>Stream</p>
-
-                        <p><select name="str">
-                                <option value="">-Select-</option>
-                                <?php
+                    <input type="hidden" name="id" value="<?php echo $row['gid']; ?>">
+		<div class="mb-4">
+			<label for="stream" class="block text-gray-700 font-bold mb-2">Stream</label>
+			<select name="str" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">-Select-</option>
+			<?php
 			$str="SELECT * FROM stream";
 			$q=$con->query($str);
 			while ($row_1=$q->fetch_assoc()) {
 				?>
-                                <option <?php if($row['stream']== $row_1['stream']){echo "selected" ;} ?> value="
-                                    <?php echo $d=$row_1['stream']; ?>">
-                                    <?php echo $row_1['stream']; ?>
-                                </option>
-                                
-                                <?php } ?>
-
-                            </select>
-                              
-                        </p>
-                        <p>Samester</p>
-                        <p><select name="sem">
-                                <option value="">-Select-</option>
-                                <?php
+                <option <?php if($row['stream']== $row_1['stream']){echo "selected" ;} ?> value="<?php echo $row_1['stream']; ?>"> <?php echo $row_1['stream']; ?> </option>
+			<?php } ?>
+        </select>
+		</div>
+		<div class="mb-4">
+			<label for="semester" class="block text-gray-700 font-bold mb-2">Semester</label>
+			<select name="sem" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">-Select-</option>
+		<?php
 			$sem="SELECT * FROM semester";
 			$qu=$con->query($sem);
 			while ($row_2=$qu->fetch_assoc()) {
 				?>
-                                <option <?php if($row['sem']==$row_2['semester']){echo "selected" ;} ?> value="
-                                    <?php echo $s=$row_2['semester']; ?>">
-                                    <?php echo $row_2['semester']; ?>
-                                </option>
-                                <?php } ?>
-
-
-                            </select></p>
-                        <p>Subject</p>
-                        <p><input type="text" name='subject' placeholder="Subject Name"
-                                value="<?php echo $row['subject'] ;?>"></p>
-                        <p>Submission Date</p>
-                        <p><input type="date" name="date" value="<?php echo $row['date']; ?>" /></p>
-                        <p>Uploded File</p>
-                        <p><input type="file" name="file" /></p>
-                        <p><img class="pdf" src="img/pdf.png">
-                            <?php echo $row['pdf'];?>
-                        </p>
-                        <p><input type="submit" name="submit" Value="Submit"></p>
-
-                    </form>
-
+                <option <?php if($row['sem']==$row_2['semester']){echo "selected" ;} ?>  value="<?php echo $row_2['semester']; ?>"> <?php echo $row_2['semester']; ?> </option>
+			<?php } ?>
+      </select>
+		</div>
+		<div class="mb-4">
+			<label for="subject" class="block text-gray-700 font-bold mb-2">Subject</label>
+			<select name="subject" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">-Select-</option>
+		<?php
+			$sem="SELECT * FROM subject";
+			$qu=$con->query($sem);
+			while ($row_3=$qu->fetch_assoc()) {
+				?>
+                <option <?php if($row['subject']==$row_3['subject']){echo "selected" ;} ?>  value="<?php echo $row_3['subject']; ?>"> <?php echo $row_3['subject']; ?> </option>
+			<?php } ?>
+      </select>
+		</div>
+		<div class="mb-4">
+			<label for="submission_date" class="block text-gray-700 font-bold mb-2">Submission Date</label>
+			<input type="date" value="<?php echo $row['date']; ?>"  id="submission_date" name="date" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+		</div>
+		<div class="mb-4">
+			<label for="file" class="block text-gray-700 font-bold mb-2">Upload File</label>
+			<input type="file" id="file" name="file" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <img class="pdf mb-2" src="img/pdf.png"><span class="font-bold bg-gray-300 p-2"><?php echo $row['pdf'];?></span>  
+		</div>    
+		<div class="text-center">
+			<button type="submit" name="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Submit</button>
+		</div>
+	</form>
 
                 </div>
                 <!-- END: .main-content -->

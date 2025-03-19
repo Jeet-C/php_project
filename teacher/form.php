@@ -46,6 +46,8 @@ if (isset($_SESSION['us'])&& $_SESSION['id'] != "") {
 
 		<!-- Daterange CSS -->
 		<link rel="stylesheet" href="vendor/daterange/daterange.css" />
+		<!-- Tailwind CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 	</head>
 
@@ -97,13 +99,13 @@ if (isset($_SESSION['us'])&& $_SESSION['id'] != "") {
 
 					<!-- BEGIN .main-content -->
 					<div class="main-content">
-          <form action="ins.php" method="post" enctype="multipart/form-data">
-       <!-- <p><label for="nac">Teacher Name</label></p> -->
-        <p><input type="hidden" name="name" id="na" value="<?php echo $_SESSION['us']; ?>" placeholder="Enter the name"/></p>
-		<p><input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>"></p>
-        <p>Stream</p>
 
-        <p><select name="str">
+	<form action="ins.php" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
+	<p><input type="hidden" name="name" id="na" value="<?php echo $_SESSION['us']; ?>" placeholder="Enter the name"/></p>
+	<p><input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>"></p>
+		<div class="mb-4">
+			<label for="stream" class="block text-gray-700 font-bold mb-2">Stream</label>
+			<select name="str" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">-Select-</option>
 			<?php
 			$str="SELECT * FROM stream";
@@ -112,11 +114,11 @@ if (isset($_SESSION['us'])&& $_SESSION['id'] != "") {
 				?>
                 <option value="<?php echo $row_1['stream']; ?>"> <?php echo $row_1['stream']; ?> </option>
 			<?php } ?>
-            
         </select>
-        </p>
-        <p>Samester</p>
-      <p><select name="sem" >
+		</div>
+		<div class="mb-4">
+			<label for="semester" class="block text-gray-700 font-bold mb-2">Semester</label>
+			<select name="sem" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         <option value="">-Select-</option>
 		<?php
 			$sem="SELECT * FROM semester";
@@ -125,9 +127,11 @@ if (isset($_SESSION['us'])&& $_SESSION['id'] != "") {
 				?>
                 <option value="<?php echo $row_2['semester']; ?>"> <?php echo $row_2['semester']; ?> </option>
 			<?php } ?>
-      </select></p>
-	  <p>Subject</p>
-	  <p><select name="subject" >
+      </select>
+		</div>
+		<div class="mb-4">
+			<label for="subject" class="block text-gray-700 font-bold mb-2">Subject</label>
+			<select name="subject" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         <option value="">-Select-</option>
 		<?php
 			$sem="SELECT * FROM subject";
@@ -136,14 +140,21 @@ if (isset($_SESSION['us'])&& $_SESSION['id'] != "") {
 				?>
                 <option value="<?php echo $row_3['subject']; ?>"> <?php echo $row_3['subject']; ?> </option>
 			<?php } ?>
-      </select></p>
-      <p>Submission Date</p>
-      <p><input type="date" name="date"/></p>
-      <p>Uploded File</p>
-      <p><input type="file" name="file"/></p>
-      <p><input type="submit" name="submit" Value="Submit"></p>
-
-    </form>
+      </select>
+		</div>
+		<div class="mb-4">
+			<label for="submission_date" class="block text-gray-700 font-bold mb-2">Submission Date</label>
+			<input type="date" id="submission_date" name="date" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+		</div>
+		<div class="mb-4">
+			<label for="file" class="block text-gray-700 font-bold mb-2">Upload File</label>
+			<input type="file" id="file" name="file" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+		</div>
+		<div class="text-center">
+			<button type="submit" name="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Submit</button>
+		</div>
+	</form>
+	
 
 
 					</div>
